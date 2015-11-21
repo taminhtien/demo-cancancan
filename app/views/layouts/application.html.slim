@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title Can can can
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-inverse
+      .container
+        .navbar-header
+          = link_to 'iCan', root_path, class: 'navbar-brand'
+        #navbar
+          ul.nav.navbar-nav
+    .container
+      - flash.each do |key, value|
+        | <div class ="alert alert-
+        = key
+        | ">
+        = value
+      = yield
+

@@ -6,17 +6,33 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    nav.navbar.navbar-inverse
+    nav.navbar.navbar-inverse.navbar-static-top
       .container
         .navbar-header
           = link_to 'iCan', root_path, class: 'navbar-brand'
         #navbar
           ul.nav.navbar-nav
+            - if can? :create, Project
+              li
+                = link_to 'New project', new_project_path
+          ul.nav.navbar-nav.pull-right
+            li.dropdown
+              a.dropdown-toggle[aria-expanded="false" role="button" data-toggle="dropdown" href="#"]
+                | Role
+                span.caret
+              ul.dropdown-menu[role="menu"]
+                - User::ROLES.each do |k, v|
+                  li
+                    = link_to session_path(k), method: :patch do
+                      = v
+                      - if v == current_user.role
+                        small.text-muted
+                        |  (current)
     .container
       - flash.each do |key, value|
-        | <div class ="alert alert-
+        |  <div class="alert alert-
         = key
-        | ">
+        | "> 
         = value
+        | </div>
       = yield
-

@@ -1,0 +1,11 @@
+.page-header
+  h1
+    | Projects
+- @projects.each do |project|
+  .well.well-sm
+    h2
+      = project.title
+    - if can? :update, project
+      = link_to 'Edit', edit_project_path(project), class: 'btn btn-infor'
+    - if can? :destroy, project
+      = link_to 'Delete', project_path(project), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'}
